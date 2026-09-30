@@ -1,6 +1,6 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,12 +76,16 @@
             align-items: center;
             cursor: grab;
             transition: 0.3s;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
         .image-item:hover {
             transform: translateY(-5px);
             border-color: #667eea;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
         }
 
         .image-item img {
@@ -90,6 +94,10 @@
             object-fit: contain;
             pointer-events: none;
             border-radius: 10px;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            pointer-events: none;
         }
 
         .drop-zone {
@@ -243,206 +251,250 @@
     </style>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
-<div class="container">
+    <div class="container">
 
-    <h1>🎯 Mencocokkan Rasa</h1>
+        <h1>🎯 Mencocokkan Rasa</h1>
 
-    <p class="subtitle">
-        Seret gambar makanan ke kategori rasa yang sesuai!
-    </p>
-
-
-    <div class="game-area">
+        <p class="subtitle">
+            Seret gambar makanan ke kategori rasa yang sesuai!
+        </p>
 
 
-        <!-- =========================
+        <div class="game-area">
+
+
+            <!-- =========================
              GAMBAR
         ========================== -->
 
-        <div class="column">
+            <div class="column">
 
-            <h2>🖼️ Gambar Makanan</h2>
+                <h2>🖼️ Gambar Makanan</h2>
 
-            <div class="images" id="imageContainer">
+                <div class="images" id="imageContainer">
 
 
-                <!-- SWEET -->
+                    <!-- SWEET -->
 
-                <div class="image-item"
-                     draggable="true"
-                     data-id="sweet1">
+                    <div class="image-item" draggable="true" data-id="sweet1">
 
-                    <img src="OIP.jfif">
+                        <img src="OIP.jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="sweet2">
+
+                        <img src="images.jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="sweet3">
+
+                        <img src="OIP (1).jfif">
+
+                    </div>
+
+
+
+                    <!-- SOUR -->
+
+                    <div class="image-item" draggable="true" data-id="sour1">
+
+                        <img src="OIP (2).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="sour2">
+
+                        <img src="OIP (3).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="sour3">
+
+                        <img src="OIP (4).jfif">
+
+                    </div>
+
+
+
+                    <!-- SALTY -->
+
+                    <div class="image-item" draggable="true" data-id="salty1">
+
+                        <img src="OIP1.jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="salty2">
+
+                        <img src="OIP2.jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="salty3">
+
+                        <img src="OIP (5).jfif">
+
+                    </div>
+
+
+
+                    <!-- BITTER -->
+
+                    <div class="image-item" draggable="true" data-id="bitter1">
+
+                        <img src="OIP (6).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="bitter2">
+
+                        <img src="OIP (7).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="bitter3">
+
+                        <img src="OIP (8).jfif">
+
+                    </div>
+
+
+
+                    <!-- SPICY -->
+
+                    <div class="image-item" draggable="true" data-id="spicy1">
+
+                        <img src="OIP (9).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="spicy2">
+
+                        <img src="OIP (10).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="spicy3">
+
+                        <img src="OIP (11).jfif">
+
+                    </div>
+
+
+
+                    <!-- UMAMI -->
+
+                    <div class="image-item" draggable="true" data-id="umami1">
+
+                        <img src="OIP (12).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="umami2">
+
+                        <img src="OIP (13).jfif">
+
+                    </div>
+
+
+                    <div class="image-item" draggable="true" data-id="umami3">
+
+                        <img src="OIP (14).jfif">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+             KATEGORI RASA
+        ========================== -->
+
+            <div class="column">
+
+                <h2>🎯 Match the Taste</h2>
+
+
+                <div class="drop-zone" data-id="sweet">
+
+                    <div class="drop-zone-title">
+                        🍬 Sweet
+                    </div>
+
+                    <div class="matched-images"></div>
 
                 </div>
 
 
-                <div class="image-item"
-                     draggable="true"
-                     data-id="sweet2">
+                <div class="drop-zone" data-id="sour">
 
-                    <img src="images.jfif">
+                    <div class="drop-zone-title">
+                        🍋 Sour
+                    </div>
 
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="sweet3">
-
-                    <img src="OIP (1).jfif">
+                    <div class="matched-images"></div>
 
                 </div>
 
 
+                <div class="drop-zone" data-id="salty">
 
-                <!-- SOUR -->
+                    <div class="drop-zone-title">
+                        🧂 Salty
+                    </div>
 
-                <div class="image-item"
-                     draggable="true"
-                     data-id="sour1">
-
-                    <img src="OIP (2).jfif">
-
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="sour2">
-
-                    <img src="OIP (3).jfif">
+                    <div class="matched-images"></div>
 
                 </div>
 
 
-                <div class="image-item"
-                     draggable="true"
-                     data-id="sour3">
+                <div class="drop-zone" data-id="bitter">
 
-                    <img src="OIP (4).jfif">
+                    <div class="drop-zone-title">
+                        🍫 Bitter
+                    </div>
 
-                </div>
-
-
-
-                <!-- SALTY -->
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="salty1">
-
-                    <img src="OIP1.jfif">
+                    <div class="matched-images"></div>
 
                 </div>
 
 
-                <div class="image-item"
-                     draggable="true"
-                     data-id="salty2">
+                <div class="drop-zone" data-id="spicy">
 
-                    <img src="OIP2.jfif">
+                    <div class="drop-zone-title">
+                        🌶️ Spicy
+                    </div>
 
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="salty3">
-
-                    <img src="OIP (5).jfif">
+                    <div class="matched-images"></div>
 
                 </div>
 
 
+                <div class="drop-zone" data-id="umami">
 
-                <!-- BITTER -->
+                    <div class="drop-zone-title">
+                        🍜 Savory / Umami
+                    </div>
 
-                <div class="image-item"
-                     draggable="true"
-                     data-id="bitter1">
-
-                    <img src="OIP (6).jfif">
-
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="bitter2">
-
-                    <img src="OIP (7).jfif">
-
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="bitter3">
-
-                    <img src="OIP (8).jfif">
-
-                </div>
-
-
-
-                <!-- SPICY -->
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="spicy1">
-
-                    <img src="OIP (9).jfif">
-
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="spicy2">
-
-                    <img src="OIP (10).jfif">
-
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="spicy3">
-
-                    <img src="OIP (11).jfif">
-
-                </div>
-
-
-
-                <!-- UMAMI -->
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="umami1">
-
-                    <img src="OIP (12).jfif">
-
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="umami2">
-
-                    <img src="OIP (13).jfif">
-
-                </div>
-
-
-                <div class="image-item"
-                     draggable="true"
-                     data-id="umami3">
-
-                    <img src="OIP (14).jfif">
+                    <div class="matched-images"></div>
 
                 </div>
 
@@ -453,84 +505,21 @@
 
 
         <!-- =========================
-             KATEGORI RASA
-        ========================== -->
+         PESAN
+    ========================== -->
 
-        <div class="column">
-
-            <h2>🎯 Match the Taste</h2>
+        <div class="message" id="message"></div>
 
 
-            <div class="drop-zone"
-                 data-id="sweet">
+        <!-- =========================
+         BUTTON
+    ========================== -->
 
-                <div class="drop-zone-title">
-                    🍬 Sweet
-                </div>
+        <div class="buttons">
 
-                <div class="matched-images"></div>
-
-            </div>
-
-
-            <div class="drop-zone"
-                 data-id="sour">
-
-                <div class="drop-zone-title">
-                    🍋 Sour
-                </div>
-
-                <div class="matched-images"></div>
-
-            </div>
-
-
-            <div class="drop-zone"
-                 data-id="salty">
-
-                <div class="drop-zone-title">
-                    🧂 Salty
-                </div>
-
-                <div class="matched-images"></div>
-
-            </div>
-
-
-            <div class="drop-zone"
-                 data-id="bitter">
-
-                <div class="drop-zone-title">
-                    🍫 Bitter
-                </div>
-
-                <div class="matched-images"></div>
-
-            </div>
-
-
-            <div class="drop-zone"
-                 data-id="spicy">
-
-                <div class="drop-zone-title">
-                    🌶️ Spicy
-                </div>
-
-                <div class="matched-images"></div>
-
-            </div>
-
-
-            <div class="drop-zone"
-                 data-id="umami">
-
-                <div class="drop-zone-title">
-                    🍜 Savory / Umami
-                </div>
-
-                <div class="matched-images"></div>
-
-            </div>
+            <button onclick="resetGame()">
+                🔄 Mulai Lagi
+            </button>
 
         </div>
 
@@ -538,445 +527,423 @@
 
 
 
-    <!-- =========================
-         PESAN
-    ========================== -->
+    <script>
 
-    <div class="message" id="message"></div>
+        let draggedItem = null;
 
+        let correct = 0;
 
-    <!-- =========================
-         BUTTON
-    ========================== -->
 
-    <div class="buttons">
+        const imageItems =
+            document.querySelectorAll(".image-item");
 
-        <button onclick="resetGame()">
-            🔄 Mulai Lagi
-        </button>
+        const dropZones =
+            document.querySelectorAll(".drop-zone");
 
-    </div>
-
-</div>
-
-
-
-<script>
-
-    let draggedItem = null;
-
-    let correct = 0;
-
-
-    const imageItems =
-        document.querySelectorAll(".image-item");
-
-    const dropZones =
-        document.querySelectorAll(".drop-zone");
-
-    const message =
-        document.getElementById("message");
-
-
-
-    /*
-    =========================
-    DRAG START
-    =========================
-    */
-
-    imageItems.forEach(item => {
-
-        item.addEventListener("dragstart", function(e) {
-
-            if (item.classList.contains("matched")) {
-
-                e.preventDefault();
-
-                return;
-            }
-
-
-            draggedItem = item;
-
-
-            setTimeout(() => {
-
-                item.classList.add("dragging");
-
-            }, 0);
-
-        });
-
-
-        item.addEventListener("dragend", function() {
-
-            item.classList.remove("dragging");
-
-        });
-
-    });
-
-
-
-    /*
-    =========================
-    DROP ZONE
-    =========================
-    */
-
-    dropZones.forEach(zone => {
-
-
-        zone.addEventListener("dragover", function(e) {
-
-            e.preventDefault();
-
-
-            const matchedImages =
-                zone.querySelector(".matched-images");
-
-
-            const currentCount =
-                matchedImages.querySelectorAll("img").length;
-
-
-            if (currentCount >= 3) {
-
-                return;
-
-            }
-
-
-            zone.classList.add("drag-over");
-
-        });
-
-
-
-        zone.addEventListener("dragleave", function() {
-
-            zone.classList.remove("drag-over");
-
-        });
-
-
-
-        zone.addEventListener("drop", function(e) {
-
-            e.preventDefault();
-
-
-            zone.classList.remove("drag-over");
-
-
-            if (!draggedItem) {
-
-                return;
-
-            }
-
-
-            const matchedImages =
-                zone.querySelector(".matched-images");
-
-
-            const currentCount =
-                matchedImages.querySelectorAll("img").length;
-
-
-            /*
-            Maksimal 3 gambar
-            */
-
-            if (currentCount >= 3) {
-
-                message.textContent =
-                    "⚠️ Kategori ini sudah penuh!";
-
-                message.className =
-                    "message error";
-
-
-                draggedItem = null;
-
-                return;
-
-            }
-
-
-
-            /*
-            Ambil ID
-            */
-
-            const imageID =
-                draggedItem.dataset.id;
-
-
-            const targetID =
-                zone.dataset.id;
-
-
-
-            /*
-            sweet1 → sweet
-            sour2 → sour
-            */
-
-            const imageTaste =
-                imageID.replace(/[0-9]/g, "");
-
-
-
-            /*
-            =========================
-            BENAR
-            =========================
-            */
-
-            if (imageTaste === targetID) {
-
-
-                correct++;
-
-
-                const clonedImage =
-                    draggedItem
-                    .querySelector("img")
-                    .cloneNode(true);
-
-
-                matchedImages.appendChild(
-                    clonedImage
-                );
-
-
-                draggedItem.classList.add(
-                    "matched"
-                );
-
-
-                draggedItem.draggable =
-                    false;
-
-
-
-                /*
-                Jika kategori sudah
-                mendapatkan 3 gambar
-                */
-
-                if (
-                    matchedImages
-                    .querySelectorAll("img")
-                    .length === 3
-                ) {
-
-                    zone.classList.add(
-                        "correct"
-                    );
-
-                }
-
-
-                message.textContent =
-                    "✅ Benar! Hebat!";
-
-
-                message.className =
-                    "message success";
-
-
-
-                /*
-                Semua selesai
-                */
-
-                if (correct === 18) {
-
-                    setTimeout(() => {
-
-                        message.innerHTML =
-                            "🎉 SELAMAT! Semua gambar berhasil dicocokkan! 🎉";
-
-                    }, 500);
-
-                }
-
-            }
-
-
-
-            /*
-            =========================
-            SALAH
-            =========================
-            */
-
-            else {
-
-
-                zone.classList.add(
-                    "wrong"
-                );
-
-
-                message.textContent =
-                    "❌ Belum tepat, coba lagi!";
-
-
-                message.className =
-                    "message error";
-
-
-                setTimeout(() => {
-
-                    zone.classList.remove(
-                        "wrong"
-                    );
-
-                }, 500);
-
-            }
-
-
-            draggedItem = null;
-
-        });
-
-    });
-
-
-
-    /*
-    =========================
-    ACAK GAMBAR
-    =========================
-    */
-
-    function shuffleImages() {
-
-        const container =
-            document.getElementById(
-                "imageContainer"
-            );
-
-
-        const items =
-            Array.from(
-                container.children
-            );
-
-
-        items.sort(
-            () => Math.random() - 0.5
-        );
-
-
-        items.forEach(item => {
-
-            container.appendChild(item);
-
-        });
-
-    }
-
-
-
-    /*
-    =========================
-    RESET GAME
-    =========================
-    */
-
-    function resetGame() {
-
-
-        correct = 0;
-
-
-        message.textContent =
-            "";
-
-        message.className =
-            "message";
+        const message =
+            document.getElementById("message");
 
 
 
         /*
-        Reset gambar
+        =========================
+        DRAG START
+        =========================
         */
 
         imageItems.forEach(item => {
 
-            item.classList.remove(
-                "matched"
-            );
+            item.addEventListener("dragstart", function (e) {
+
+                if (item.classList.contains("matched")) {
+
+                    e.preventDefault();
+
+                    return;
+                }
 
 
-            item.classList.remove(
-                "dragging"
-            );
+                draggedItem = item;
 
 
-            item.draggable =
-                true;
+                setTimeout(() => {
+
+                    item.classList.add("dragging");
+
+                }, 0);
+
+            });
+
+
+            item.addEventListener("dragend", function () {
+
+                item.classList.remove("dragging");
+
+            });
 
         });
 
 
 
         /*
-        Reset kategori
+        =========================
+        DROP ZONE
+        =========================
         */
 
         dropZones.forEach(zone => {
 
 
-            zone.classList.remove(
-                "correct"
-            );
+            zone.addEventListener("dragover", function (e) {
+
+                e.preventDefault();
 
 
-            zone.classList.remove(
-                "wrong"
-            );
+                const matchedImages =
+                    zone.querySelector(".matched-images");
 
 
-            zone.classList.remove(
-                "drag-over"
-            );
+                const currentCount =
+                    matchedImages.querySelectorAll("img").length;
 
 
-            const matchedImages =
-                zone.querySelector(
-                    ".matched-images"
-                );
+                if (currentCount >= 3) {
+
+                    return;
+
+                }
 
 
-            matchedImages.innerHTML =
-                "";
+                zone.classList.add("drag-over");
+
+            });
+
+
+
+            zone.addEventListener("dragleave", function () {
+
+                zone.classList.remove("drag-over");
+
+            });
+
+
+
+            zone.addEventListener("drop", function (e) {
+
+                e.preventDefault();
+
+
+                zone.classList.remove("drag-over");
+
+
+                if (!draggedItem) {
+
+                    return;
+
+                }
+
+
+                const matchedImages =
+                    zone.querySelector(".matched-images");
+
+
+                const currentCount =
+                    matchedImages.querySelectorAll("img").length;
+
+
+                /*
+                Maksimal 3 gambar
+                */
+
+                if (currentCount >= 3) {
+
+                    message.textContent =
+                        "⚠️ Kategori ini sudah penuh!";
+
+                    message.className =
+                        "message error";
+
+
+                    draggedItem = null;
+
+                    return;
+
+                }
+
+
+
+                /*
+                Ambil ID
+                */
+
+                const imageID =
+                    draggedItem.dataset.id;
+
+
+                const targetID =
+                    zone.dataset.id;
+
+
+
+                /*
+                sweet1 → sweet
+                sour2 → sour
+                */
+
+                const imageTaste =
+                    imageID.replace(/[0-9]/g, "");
+
+
+
+                /*
+                =========================
+                BENAR
+                =========================
+                */
+
+                if (imageTaste === targetID) {
+
+
+                    correct++;
+
+
+                    const clonedImage =
+                        draggedItem
+                            .querySelector("img")
+                            .cloneNode(true);
+
+
+                    matchedImages.appendChild(
+                        clonedImage
+                    );
+
+
+                    draggedItem.classList.add(
+                        "matched"
+                    );
+
+
+                    draggedItem.draggable =
+                        false;
+
+
+
+                    /*
+                    Jika kategori sudah
+                    mendapatkan 3 gambar
+                    */
+
+                    if (
+                        matchedImages
+                            .querySelectorAll("img")
+                            .length === 3
+                    ) {
+
+                        zone.classList.add(
+                            "correct"
+                        );
+
+                    }
+
+
+                    message.textContent =
+                        "✅ Benar! Hebat!";
+
+
+                    message.className =
+                        "message success";
+
+
+
+                    /*
+                    Semua selesai
+                    */
+
+                    if (correct === 18) {
+
+                        setTimeout(() => {
+
+                            message.innerHTML =
+                                "🎉 SELAMAT! Semua gambar berhasil dicocokkan! 🎉";
+
+                        }, 500);
+
+                    }
+
+                }
+
+
+
+                /*
+                =========================
+                SALAH
+                =========================
+                */
+
+                else {
+
+
+                    zone.classList.add(
+                        "wrong"
+                    );
+
+
+                    message.textContent =
+                        "❌ Belum tepat, coba lagi!";
+
+
+                    message.className =
+                        "message error";
+
+
+                    setTimeout(() => {
+
+                        zone.classList.remove(
+                            "wrong"
+                        );
+
+                    }, 500);
+
+                }
+
+
+                draggedItem = null;
+
+            });
 
         });
 
 
+
+        /*
+        =========================
+        ACAK GAMBAR
+        =========================
+        */
+
+        function shuffleImages() {
+
+            const container =
+                document.getElementById(
+                    "imageContainer"
+                );
+
+
+            const items =
+                Array.from(
+                    container.children
+                );
+
+
+            items.sort(
+                () => Math.random() - 0.5
+            );
+
+
+            items.forEach(item => {
+
+                container.appendChild(item);
+
+            });
+
+        }
+
+
+
+        /*
+        =========================
+        RESET GAME
+        =========================
+        */
+
+        function resetGame() {
+
+
+            correct = 0;
+
+
+            message.textContent =
+                "";
+
+            message.className =
+                "message";
+
+
+
+            /*
+            Reset gambar
+            */
+
+            imageItems.forEach(item => {
+
+                item.classList.remove(
+                    "matched"
+                );
+
+
+                item.classList.remove(
+                    "dragging"
+                );
+
+
+                item.draggable =
+                    true;
+
+            });
+
+
+
+            /*
+            Reset kategori
+            */
+
+            dropZones.forEach(zone => {
+
+
+                zone.classList.remove(
+                    "correct"
+                );
+
+
+                zone.classList.remove(
+                    "wrong"
+                );
+
+
+                zone.classList.remove(
+                    "drag-over"
+                );
+
+
+                const matchedImages =
+                    zone.querySelector(
+                        ".matched-images"
+                    );
+
+
+                matchedImages.innerHTML =
+                    "";
+
+            });
+
+
+            shuffleImages();
+
+        }
+
+
+
+        /*
+        =========================
+        ACAK SAAT MULAI
+        =========================
+        */
+
         shuffleImages();
 
-    }
-
-
-
-    /*
-    =========================
-    ACAK SAAT MULAI
-    =========================
-    */
-
-    shuffleImages();
-
-</script>
+    </script>
 
 </body>
+
 </html>
 ```
