@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,10 +17,13 @@
             background: linear-gradient(135deg, #74ebd5, #ACB6E5);
             min-height: 100vh;
             padding: 30px 15px;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1250px;
             margin: auto;
             background: white;
             border-radius: 20px;
@@ -41,10 +43,21 @@
             margin-bottom: 25px;
         }
 
+        /* =========================
+           LAYOUT UTAMA
+        ========================= */
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 230px;
+            gap: 25px;
+            align-items: start;
+        }
+
         .game-area {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 25px;
         }
 
         .column {
@@ -58,6 +71,10 @@
             margin-bottom: 20px;
             color: #444;
         }
+
+        /* =========================
+           GAMBAR
+        ========================= */
 
         .images {
             display: grid;
@@ -76,6 +93,7 @@
             align-items: center;
             cursor: grab;
             transition: 0.3s;
+
             touch-action: none;
             user-select: none;
             -webkit-user-select: none;
@@ -85,7 +103,7 @@
         .image-item:hover {
             transform: translateY(-5px);
             border-color: #667eea;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
         }
 
         .image-item img {
@@ -97,8 +115,21 @@
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
-            pointer-events: none;
         }
+
+        .dragging {
+            opacity: 0.5;
+        }
+
+        .matched {
+            opacity: 0.4;
+            cursor: default;
+            border-color: #28a745;
+        }
+
+        /* =========================
+           DROP ZONE
+        ========================= */
 
         .drop-zone {
             background: white;
@@ -151,53 +182,110 @@
             border: 2px solid #28a745;
         }
 
-        .dragging {
-            opacity: 0.5;
+        /* =========================
+           PANEL INFORMASI KANAN
+        ========================= */
+
+        .info-panel {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 18px;
+            position: sticky;
+            top: 20px;
         }
 
-        .matched {
-            opacity: 0.4;
-            cursor: default;
+        .info-panel h2 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 18px;
+            font-size: 21px;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            text-align: center;
+            border: 2px solid #ddd;
+        }
+
+        .info-icon {
+            font-size: 32px;
+            margin-bottom: 7px;
+        }
+
+        .info-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .info-text {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .info-box.wrong-info {
+            border-color: #dc3545;
+        }
+
+        .info-box.correct-info {
             border-color: #28a745;
         }
 
-        .message {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 20px;
-            font-weight: bold;
-            min-height: 30px;
-        }
-
-        .success {
-            color: #28a745;
-        }
-
-        .error {
-            color: #dc3545;
-        }
-
-        .buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        button {
+        .reset-button {
+            width: 100%;
             border: none;
             background: #667eea;
             color: white;
-            padding: 13px 30px;
+            padding: 14px 10px;
             border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            margin-top: 5px;
         }
 
-        button:hover {
+        .reset-button:hover {
             background: #5568d9;
             transform: translateY(-2px);
         }
+
+        /* =========================
+           PESAN AKTIF
+        ========================= */
+
+        .current-message {
+            margin-top: 15px;
+            padding: 13px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            min-height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .current-message.success {
+            color: #155724;
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+
+        .current-message.error {
+            color: #721c24;
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+        }
+
+        /* =========================
+           ANIMASI
+        ========================= */
 
         @keyframes shake {
 
@@ -219,6 +307,36 @@
 
             100% {
                 transform: translateX(0);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 950px) {
+
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .info-panel {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .info-panel h2 {
+                grid-column: 1 / -1;
+            }
+
+            .info-box {
+                margin-bottom: 0;
+            }
+
+            .reset-button {
+                margin-top: 0;
             }
         }
 
@@ -244,6 +362,14 @@
                 height: 80px;
             }
 
+            .info-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .info-panel h2 {
+                grid-column: auto;
+            }
+
             h1 {
                 font-size: 25px;
             }
@@ -253,21 +379,26 @@
 
 <body oncontextmenu="return false;">
 
-    <div class="container">
+<div class="container">
 
-        <h1>🎯 Mencocokkan Rasa</h1>
+    <h1>🎯 Mencocokkan Rasa</h1>
 
-        <p class="subtitle">
-            Seret gambar makanan ke kategori rasa yang sesuai!
-        </p>
+    <p class="subtitle">
+        Seret gambar makanan ke kategori rasa yang sesuai!
+    </p>
 
+
+    <div class="main-layout">
+
+
+        <!-- =========================
+             AREA GAME
+        ========================== -->
 
         <div class="game-area">
 
 
-            <!-- =========================
-             GAMBAR
-        ========================== -->
+            <!-- GAMBAR -->
 
             <div class="column">
 
@@ -278,141 +409,160 @@
 
                     <!-- SWEET -->
 
-                    <div class="image-item" draggable="true" data-id="sweet1">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="sweet1">
 
                         <img src="OIP.jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="sweet2">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="sweet2">
 
                         <img src="images.jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="sweet3">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="sweet3">
 
                         <img src="OIP (1).jfif">
 
                     </div>
 
 
-
                     <!-- SOUR -->
 
-                    <div class="image-item" draggable="true" data-id="sour1">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="sour1">
 
                         <img src="OIP (2).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="sour2">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="sour2">
 
                         <img src="OIP (3).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="sour3">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="sour3">
 
                         <img src="OIP (4).jfif">
 
                     </div>
 
 
-
                     <!-- SALTY -->
 
-                    <div class="image-item" draggable="true" data-id="salty1">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="salty1">
 
                         <img src="OIP1.jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="salty2">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="salty2">
 
                         <img src="OIP2.jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="salty3">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="salty3">
 
                         <img src="OIP (5).jfif">
 
                     </div>
 
 
-
                     <!-- BITTER -->
 
-                    <div class="image-item" draggable="true" data-id="bitter1">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="bitter1">
 
                         <img src="OIP (6).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="bitter2">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="bitter2">
 
                         <img src="OIP (7).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="bitter3">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="bitter3">
 
                         <img src="OIP (8).jfif">
 
                     </div>
 
 
-
                     <!-- SPICY -->
 
-                    <div class="image-item" draggable="true" data-id="spicy1">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="spicy1">
 
                         <img src="OIP (9).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="spicy2">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="spicy2">
 
                         <img src="OIP (10).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="spicy3">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="spicy3">
 
                         <img src="OIP (11).jfif">
 
                     </div>
 
 
-
                     <!-- UMAMI -->
 
-                    <div class="image-item" draggable="true" data-id="umami1">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="umami1">
 
                         <img src="OIP (12).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="umami2">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="umami2">
 
                         <img src="OIP (13).jfif">
 
                     </div>
 
-
-                    <div class="image-item" draggable="true" data-id="umami3">
+                    <div class="image-item"
+                         draggable="true"
+                         data-id="umami3">
 
                         <img src="OIP (14).jfif">
 
@@ -423,17 +573,15 @@
             </div>
 
 
-
-            <!-- =========================
-             KATEGORI RASA
-        ========================== -->
+            <!-- KATEGORI -->
 
             <div class="column">
 
                 <h2>🎯 Match the Taste</h2>
 
 
-                <div class="drop-zone" data-id="sweet">
+                <div class="drop-zone"
+                     data-id="sweet">
 
                     <div class="drop-zone-title">
                         🍬 Sweet
@@ -444,7 +592,8 @@
                 </div>
 
 
-                <div class="drop-zone" data-id="sour">
+                <div class="drop-zone"
+                     data-id="sour">
 
                     <div class="drop-zone-title">
                         🍋 Sour
@@ -455,7 +604,8 @@
                 </div>
 
 
-                <div class="drop-zone" data-id="salty">
+                <div class="drop-zone"
+                     data-id="salty">
 
                     <div class="drop-zone-title">
                         🧂 Salty
@@ -466,7 +616,8 @@
                 </div>
 
 
-                <div class="drop-zone" data-id="bitter">
+                <div class="drop-zone"
+                     data-id="bitter">
 
                     <div class="drop-zone-title">
                         🍫 Bitter
@@ -477,7 +628,8 @@
                 </div>
 
 
-                <div class="drop-zone" data-id="spicy">
+                <div class="drop-zone"
+                     data-id="spicy">
 
                     <div class="drop-zone-title">
                         🌶️ Spicy
@@ -488,7 +640,8 @@
                 </div>
 
 
-                <div class="drop-zone" data-id="umami">
+                <div class="drop-zone"
+                     data-id="umami">
 
                     <div class="drop-zone-title">
                         🍜 Savory / Umami
@@ -503,447 +656,405 @@
         </div>
 
 
-
         <!-- =========================
-         PESAN
-    ========================== -->
+             PANEL INFORMASI KANAN
+        ========================== -->
 
-        <div class="message" id="message"></div>
+        <div class="info-panel">
+
+            <h2>📌 Informasi</h2>
 
 
-        <!-- =========================
-         BUTTON
-    ========================== -->
 
-        <div class="buttons">
+            <button class="reset-button"
+                    onclick="resetGame()">
 
-            <button onclick="resetGame()">
                 🔄 Mulai Lagi
+
             </button>
+
+
+            <div class="current-message"
+                 id="message">
+
+                Silakan mulai mencocokkan
+                gambar.
+
+            </div>
 
         </div>
 
     </div>
 
+</div>
 
 
-    <script>
+<script>
 
-        let draggedItem = null;
+    let draggedItem = null;
 
-        let correct = 0;
-
-
-        const imageItems =
-            document.querySelectorAll(".image-item");
-
-        const dropZones =
-            document.querySelectorAll(".drop-zone");
-
-        const message =
-            document.getElementById("message");
+    let correct = 0;
 
 
+    const imageItems =
+        document.querySelectorAll(".image-item");
 
-        /*
-        =========================
-        DRAG START
-        =========================
-        */
+    const dropZones =
+        document.querySelectorAll(".drop-zone");
 
-        imageItems.forEach(item => {
-
-            item.addEventListener("dragstart", function (e) {
-
-                if (item.classList.contains("matched")) {
-
-                    e.preventDefault();
-
-                    return;
-                }
+    const message =
+        document.getElementById("message");
 
 
-                draggedItem = item;
+    /* =========================
+       DRAG START
+    ========================= */
 
+    imageItems.forEach(item => {
 
-                setTimeout(() => {
+        item.addEventListener("dragstart", function(e) {
 
-                    item.classList.add("dragging");
+            if (item.classList.contains("matched")) {
 
-                }, 0);
+                e.preventDefault();
 
-            });
+                return;
 
+            }
 
-            item.addEventListener("dragend", function () {
+            draggedItem = item;
 
-                item.classList.remove("dragging");
+            setTimeout(() => {
 
-            });
+                item.classList.add("dragging");
+
+            }, 0);
 
         });
 
 
+        item.addEventListener("dragend", function() {
 
-        /*
-        =========================
-        DROP ZONE
-        =========================
-        */
+            item.classList.remove("dragging");
 
-        dropZones.forEach(zone => {
+        });
 
+    });
 
-            zone.addEventListener("dragover", function (e) {
 
-                e.preventDefault();
+    /* =========================
+       DROP ZONE
+    ========================= */
 
+    dropZones.forEach(zone => {
 
-                const matchedImages =
-                    zone.querySelector(".matched-images");
+        zone.addEventListener("dragover", function(e) {
 
+            e.preventDefault();
 
-                const currentCount =
-                    matchedImages.querySelectorAll("img").length;
 
+            const matchedImages =
+                zone.querySelector(".matched-images");
 
-                if (currentCount >= 3) {
 
-                    return;
+            const currentCount =
+                matchedImages
+                .querySelectorAll("img")
+                .length;
 
-                }
 
+            if (currentCount >= 3) {
 
-                zone.classList.add("drag-over");
+                return;
 
-            });
+            }
 
 
+            zone.classList.add("drag-over");
 
-            zone.addEventListener("dragleave", function () {
+        });
 
-                zone.classList.remove("drag-over");
 
-            });
+        zone.addEventListener("dragleave", function() {
 
+            zone.classList.remove("drag-over");
 
+        });
 
-            zone.addEventListener("drop", function (e) {
 
-                e.preventDefault();
+        zone.addEventListener("drop", function(e) {
 
+            e.preventDefault();
 
-                zone.classList.remove("drag-over");
+            zone.classList.remove("drag-over");
 
 
-                if (!draggedItem) {
+            if (!draggedItem) {
 
-                    return;
+                return;
 
-                }
+            }
 
 
-                const matchedImages =
-                    zone.querySelector(".matched-images");
+            const matchedImages =
+                zone.querySelector(".matched-images");
 
 
-                const currentCount =
-                    matchedImages.querySelectorAll("img").length;
+            const currentCount =
+                matchedImages
+                .querySelectorAll("img")
+                .length;
 
 
-                /*
-                Maksimal 3 gambar
-                */
+            if (currentCount >= 3) {
 
-                if (currentCount >= 3) {
+                showError(
+                    "⚠️ Kategori ini sudah penuh!"
+                );
 
-                    message.textContent =
-                        "⚠️ Kategori ini sudah penuh!";
+                draggedItem = null;
 
-                    message.className =
-                        "message error";
+                return;
 
+            }
 
-                    draggedItem = null;
 
-                    return;
+            const imageID =
+                draggedItem.dataset.id;
 
-                }
 
+            const targetID =
+                zone.dataset.id;
 
 
-                /*
-                Ambil ID
-                */
+            const imageTaste =
+                imageID.replace(/[0-9]/g, "");
 
-                const imageID =
-                    draggedItem.dataset.id;
 
+            /* =========================
+               BENAR
+            ========================= */
 
-                const targetID =
-                    zone.dataset.id;
+            if (imageTaste === targetID) {
 
+                correct++;
 
 
-                /*
-                sweet1 → sweet
-                sour2 → sour
-                */
+                const clonedImage =
+                    draggedItem
+                    .querySelector("img")
+                    .cloneNode(true);
 
-                const imageTaste =
-                    imageID.replace(/[0-9]/g, "");
 
+                matchedImages.appendChild(
+                    clonedImage
+                );
 
 
-                /*
-                =========================
-                BENAR
-                =========================
-                */
+                draggedItem.classList.add(
+                    "matched"
+                );
 
-                if (imageTaste === targetID) {
 
+                draggedItem.draggable =
+                    false;
 
-                    correct++;
 
-
-                    const clonedImage =
-                        draggedItem
-                            .querySelector("img")
-                            .cloneNode(true);
-
-
-                    matchedImages.appendChild(
-                        clonedImage
-                    );
-
-
-                    draggedItem.classList.add(
-                        "matched"
-                    );
-
-
-                    draggedItem.draggable =
-                        false;
-
-
-
-                    /*
-                    Jika kategori sudah
-                    mendapatkan 3 gambar
-                    */
-
-                    if (
-                        matchedImages
-                            .querySelectorAll("img")
-                            .length === 3
-                    ) {
-
-                        zone.classList.add(
-                            "correct"
-                        );
-
-                    }
-
-
-                    message.textContent =
-                        "✅ Benar! Hebat!";
-
-
-                    message.className =
-                        "message success";
-
-
-
-                    /*
-                    Semua selesai
-                    */
-
-                    if (correct === 18) {
-
-                        setTimeout(() => {
-
-                            message.innerHTML =
-                                "🎉 SELAMAT! Semua gambar berhasil dicocokkan! 🎉";
-
-                        }, 500);
-
-                    }
-
-                }
-
-
-
-                /*
-                =========================
-                SALAH
-                =========================
-                */
-
-                else {
-
+                if (
+                    matchedImages
+                    .querySelectorAll("img")
+                    .length === 3
+                ) {
 
                     zone.classList.add(
-                        "wrong"
+                        "correct"
                     );
 
-
-                    message.textContent =
-                        "❌ Belum tepat, coba lagi!";
+                }
 
 
-                    message.className =
-                        "message error";
+                showSuccess(
+                    "✅ Benar! Hebat!"
+                );
 
+
+                if (correct === 18) {
 
                     setTimeout(() => {
 
-                        zone.classList.remove(
-                            "wrong"
+                        showSuccess(
+                            "🎉 SELAMAT! Semua gambar berhasil dicocokkan! 🎉"
                         );
 
                     }, 500);
 
                 }
 
+            }
 
-                draggedItem = null;
 
-            });
+            /* =========================
+               SALAH
+            ========================= */
+
+            else {
+
+                zone.classList.add("wrong");
+
+
+                showError(
+                    "❌ Belum tepat, coba lagi!"
+                );
+
+
+                setTimeout(() => {
+
+                    zone.classList.remove(
+                        "wrong"
+                    );
+
+                }, 500);
+
+            }
+
+
+            draggedItem = null;
+
+        });
+
+    });
+
+
+    /* =========================
+       PESAN BENAR
+    ========================= */
+
+    function showSuccess(text) {
+
+        message.textContent = text;
+
+        message.className =
+            "current-message success";
+
+    }
+
+
+    /* =========================
+       PESAN SALAH
+    ========================= */
+
+    function showError(text) {
+
+        message.textContent = text;
+
+        message.className =
+            "current-message error";
+
+    }
+
+
+    /* =========================
+       ACAK GAMBAR
+    ========================= */
+
+    function shuffleImages() {
+
+        const container =
+            document.getElementById(
+                "imageContainer"
+            );
+
+
+        const items =
+            Array.from(
+                container.children
+            );
+
+
+        items.sort(
+            () => Math.random() - 0.5
+        );
+
+
+        items.forEach(item => {
+
+            container.appendChild(item);
+
+        });
+
+    }
+
+
+    /* =========================
+       RESET GAME
+    ========================= */
+
+    function resetGame() {
+
+        correct = 0;
+
+
+        message.textContent =
+            "Silakan mulai mencocokkan gambar.";
+
+
+        message.className =
+            "current-message";
+
+
+        imageItems.forEach(item => {
+
+            item.classList.remove(
+                "matched"
+            );
+
+            item.classList.remove(
+                "dragging"
+            );
+
+            item.draggable = true;
 
         });
 
 
+        dropZones.forEach(zone => {
 
-        /*
-        =========================
-        ACAK GAMBAR
-        =========================
-        */
+            zone.classList.remove(
+                "correct"
+            );
 
-        function shuffleImages() {
+            zone.classList.remove(
+                "wrong"
+            );
 
-            const container =
-                document.getElementById(
-                    "imageContainer"
-                );
-
-
-            const items =
-                Array.from(
-                    container.children
-                );
-
-
-            items.sort(
-                () => Math.random() - 0.5
+            zone.classList.remove(
+                "drag-over"
             );
 
 
-            items.forEach(item => {
-
-                container.appendChild(item);
-
-            });
-
-        }
-
-
-
-        /*
-        =========================
-        RESET GAME
-        =========================
-        */
-
-        function resetGame() {
-
-
-            correct = 0;
-
-
-            message.textContent =
-                "";
-
-            message.className =
-                "message";
-
-
-
-            /*
-            Reset gambar
-            */
-
-            imageItems.forEach(item => {
-
-                item.classList.remove(
-                    "matched"
+            const matchedImages =
+                zone.querySelector(
+                    ".matched-images"
                 );
 
 
-                item.classList.remove(
-                    "dragging"
-                );
+            matchedImages.innerHTML = "";
 
+        });
 
-                item.draggable =
-                    true;
-
-            });
-
-
-
-            /*
-            Reset kategori
-            */
-
-            dropZones.forEach(zone => {
-
-
-                zone.classList.remove(
-                    "correct"
-                );
-
-
-                zone.classList.remove(
-                    "wrong"
-                );
-
-
-                zone.classList.remove(
-                    "drag-over"
-                );
-
-
-                const matchedImages =
-                    zone.querySelector(
-                        ".matched-images"
-                    );
-
-
-                matchedImages.innerHTML =
-                    "";
-
-            });
-
-
-            shuffleImages();
-
-        }
-
-
-
-        /*
-        =========================
-        ACAK SAAT MULAI
-        =========================
-        */
 
         shuffleImages();
 
-    </script>
+    }
+
+
+    /* =========================
+       ACAK SAAT PERTAMA
+    ========================= */
+
+    shuffleImages();
+
+</script>
 
 </body>
-
 </html>
-```
